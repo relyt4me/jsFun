@@ -325,11 +325,17 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const result = classrooms.filter((classroom) => {
+      return classroom.program === "FE";
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an array of classroom objects
+     * I know I need an array of the classroom objects where the program property is "FE"
+     * I can use filter to go through the array and get just the FE classrooms
+     */
   },
 
   totalCapacities() {
@@ -340,21 +346,42 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const result = classrooms.reduce(
+      (capacityTracker, classroom) => {
+        if (classroom.program === "FE") {
+          capacityTracker.feCapacity += classroom.capacity;
+        } else {
+          capacityTracker.beCapacity += classroom.capacity;
+        }
+        return capacityTracker;
+      },
+      { feCapacity: 0, beCapacity: 0 },
+    );
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I have an array of classroom objects with program and capacity properties
+     * I know I need an object with two properties feCapacity and beCapacity
+     * I can use reduce to create my new object
+     * At each classroom I will add to the correct program with a conditional
+     */
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const result = classrooms.sort((classroomA, classroomB) => {
+      return classroomA.capacity - classroomB.capacity;
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an array of classroom objects with a capacity property
+     * I know I need that array but in order of capcity (least to greatest)
+     * I can use sort and as I am doing a incrementing order I will use A-B
+     */
   },
 };
 
