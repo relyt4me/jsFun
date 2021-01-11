@@ -795,11 +795,28 @@ const astronomyPrompts = {
     //    "Orion",
     //    "The Little Dipper" ]
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    let starsByMagnitude = stars.sort((starA, starB) => {
+      return starA.visualMagnitude - starB.visualMagnitude;
+    });
+    const result = starsByMagnitude.reduce(
+      (constellationsStarsExistIn, star) => {
+        star.constellation &&
+          constellationsStarsExistIn.push(star.constellation);
+        return constellationsStarsExistIn;
+      },
+      [],
+    );
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an array of star objects with a constellation and visualMagnitude property
+     * I know I need an array of strings that are constellation names in order of the stars magnitude but only if the star is in a constellation
+     * I will need to sort the stars by magnitude
+     * I need to build a different length array and make it just the constellation names
+     * I can use reduce to do both at once
+     * Or i could use filter and then map
+     */
   },
 };
 
