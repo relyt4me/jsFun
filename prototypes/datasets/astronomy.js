@@ -1,99 +1,114 @@
 const constellations = {
   orion: {
-    names: ['Orion', 'The Hunter', 'The Giant', 'The Deer'],
-    stars: ['Betelgeuse', 'Rigel', 'Bellatrix', 'Mintaka', 'Alnilam', 'Alnitak', 'Saiph']
+    names: ["Orion", "The Hunter", "The Giant", "The Deer"],
+    stars: [
+      "Betelgeuse",
+      "Rigel",
+      "Bellatrix",
+      "Mintaka",
+      "Alnilam",
+      "Alnitak",
+      "Saiph",
+    ],
   },
   ursaMajor: {
-    names: ['Ursa Major', 'The Big Dipper', 'The Great Bear', 'The Plow'],
-    stars: ['Dubhe', 'Merak', 'Phecda', 'Megrez', 'Alioth', 'Mizar', 'Alkaid']
+    names: ["Ursa Major", "The Big Dipper", "The Great Bear", "The Plow"],
+    stars: ["Dubhe", "Merak", "Phecda", "Megrez", "Alioth", "Mizar", "Alkaid"],
   },
   ursaMinor: {
-    names: ['Ursa Minor', 'The Little Dipper', 'The Cub', 'The Little Bear'],
-    stars: ['Polaris', 'Kochab', 'Pherkad', 'Delta', 'Epsilon Ursae Minoris', 'Lambda Ursae Minoris']
-  }
+    names: ["Ursa Minor", "The Little Dipper", "The Cub", "The Little Bear"],
+    stars: [
+      "Polaris",
+      "Kochab",
+      "Pherkad",
+      "Delta",
+      "Epsilon Ursae Minoris",
+      "Lambda Ursae Minoris",
+    ],
+  },
 };
 
 const stars = [
   {
-    name: 'Sirius',
+    name: "Sirius",
     visualMagnitude: -1.46,
-    constellation: 'Canis Major',
+    constellation: "Canis Major",
     lightYearsFromEarth: 8.6,
-    color: 'blue'
+    color: "blue",
   },
   {
-    name: 'Canopis',
+    name: "Canopis",
     visualMagnitude: -0.74,
-    constellation: 'Carina',
+    constellation: "Carina",
     lightYearsFromEarth: 310,
-    color: 'white'
+    color: "white",
   },
   {
-    name: 'Alpha Centauri',
+    name: "Alpha Centauri",
     visualMagnitude: -0.27,
-    constellation: '',
+    constellation: "",
     lightYearsFromEarth: 4.4,
-    color: 'yellow'
+    color: "yellow",
   },
   {
-    name: 'Arcturus',
+    name: "Arcturus",
     visualMagnitude: -0.05,
-    constellation: 'Boötes',
+    constellation: "Boötes",
     lightYearsFromEarth: 37,
-    color: 'orange'
+    color: "orange",
   },
   {
-    name: 'Vega',
+    name: "Vega",
     visualMagnitude: 0.3,
-    constellation: 'Lyra',
+    constellation: "Lyra",
     lightYearsFromEarth: 25,
-    color: 'blue'
+    color: "blue",
   },
   {
-    name: 'Capella',
+    name: "Capella",
     visualMagnitude: 0.08,
-    constellation: 'Auriga',
+    constellation: "Auriga",
     lightYearsFromEarth: 42,
-    color: 'yellow'
+    color: "yellow",
   },
   {
-    name: 'Rigel',
+    name: "Rigel",
     visualMagnitude: 0.13,
-    constellation: 'Orion',
+    constellation: "Orion",
     lightYearsFromEarth: 860,
-    color: 'blue'
+    color: "blue",
   },
   {
-    name: 'Procyon',
+    name: "Procyon",
     visualMagnitude: 0.34,
-    constellation: 'Canis Minor',
+    constellation: "Canis Minor",
     lightYearsFromEarth: 11,
-    color: 'white'
+    color: "white",
   },
   {
-    name: 'Achernar',
+    name: "Achernar",
     visualMagnitude: 0.46,
-    constellation: 'The Plow',
+    constellation: "The Plow",
     lightYearsFromEarth: 140,
-    color: 'blue'
+    color: "blue",
   },
   {
-    name: 'Betelgeuse',
+    name: "Betelgeuse",
     visualMagnitude: 0.5,
-    constellation: 'Orion',
+    constellation: "Orion",
     lightYearsFromEarth: 640,
-    color: 'red'
+    color: "red",
   },
   {
-    name: 'Hadar',
+    name: "Hadar",
     visualMagnitude: 0.61,
-    constellation: 'The Little Dipper',
+    constellation: "The Little Dipper",
     lightYearsFromEarth: 350,
-    color: 'blue'
-  }
+    color: "blue",
+  },
 ];
 
 module.exports = {
   constellations,
-  stars
-}
+  stars,
+};

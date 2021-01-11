@@ -723,11 +723,29 @@ const astronomyPrompts = {
     //     color: 'red' }
     // ]
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    let starsInConstellations = Object.keys(constellations).reduce(
+      (starsInConstellations, constellationName) => {
+        return starsInConstellations.concat(
+          constellations[constellationName].stars,
+        );
+      },
+      [],
+    );
+    const result = stars.filter((star) => {
+      return starsInConstellations.includes(star.name);
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an object of constilation objects with a stars array property
+     * I know I also have an array of star objects with a name property.
+     * I know I need an array of star objects that only has the ones that exist as stars withing my constilation array
+     * I want to go through my stars array and at each star check if it is in my constilations arrays
+     * I can combine my constilations star arrays with a concat by looping over it with a reduce
+     * Then I can use a filter on my stars checking against the name of the star included in my constilation stars array
+     *
+     */
   },
 
   starsByColor() {
