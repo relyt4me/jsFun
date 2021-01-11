@@ -759,11 +759,26 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const result = stars.reduce((starsByColor, star) => {
+      if (starsByColor[star.color]) {
+        starsByColor[star.color].push(star);
+      } else {
+        starsByColor[star.color] = [star];
+      }
+      return starsByColor;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an array of star objects that have a color property
+     * I know I need an object with keys of colors of stars and values of array sof the star objects that match
+     * I am building an object as I go through my stars array
+     * I can use reduce for this
+     * At each star I need to check if the color is already a key
+     * If it is push the star object into the array value
+     * If not create a key value with the color and star object in an array
+     */
   },
 
   constellationsStarsExistIn() {
