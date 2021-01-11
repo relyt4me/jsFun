@@ -240,7 +240,7 @@ describe("PROTOTYPES", () => {
     });
   });
 
-  describe.only("Class Prompts", () => {
+  describe("Class Prompts", () => {
     it("feClassrooms", () => {
       const e = classPrompts.feClassrooms();
 
@@ -590,7 +590,7 @@ describe("PROTOTYPES", () => {
     });
   });
 
-  describe("Astronomy Prompts", () => {
+  describe.only("Astronomy Prompts", () => {
     it("starsInConstellations", () => {
       const e = astronomyPrompts.starsInConstellations();
 
