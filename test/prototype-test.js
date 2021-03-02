@@ -240,7 +240,7 @@ describe("PROTOTYPES", () => {
     });
   });
 
-  describe.only("Class Prompts", () => {
+  describe("Class Prompts", () => {
     it("feClassrooms", () => {
       const e = classPrompts.feClassrooms();
 
@@ -724,7 +724,7 @@ describe("PROTOTYPES", () => {
     });
   });
 
-  describe("Ultima Prompts", () => {
+  describe.only("Ultima Prompts", () => {
     it("totalDamage", () => {
       const e = ultimaPrompts.totalDamage();
 
