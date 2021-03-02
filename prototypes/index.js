@@ -831,23 +831,63 @@ const ultimaPrompts = {
   totalDamage() {
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
-
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    let totalDamage = characters.reduce((totalDamage, character) => {
+      let damageOfCharacter = character.weapons.reduce(
+        (totalDamageOfCharacter, weapon) => {
+          totalDamageOfCharacter += weapons[weapon].damage;
+          return totalDamageOfCharacter;
+        },
+        0,
+      );
+      totalDamage += damageOfCharacter;
+      return totalDamage;
+    }, 0);
+    const result = totalDamage;
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /**
+     * I know I have an array of character objects with a key weapons that is an array of weapon names
+     * I also have an object of weapons with keys that are the weapon names and have an object value that has a damage key
+     * I know I need a single number that represents the total damage of all of the weapons the characters can use
+     * I need to loop over the characters array and at each character loop over my weapons array
+     * At each weapon I can use bracket and dot notation to get to the damage
+     * I will add this value to a counter
+     * As I have a counter I can use the array prototype reduce
+     */
   },
 
   charactersByTotal() {
     // Return the sum damage and total range for each character as an object.
-    // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
+    // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}git
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    let damageRangeSum = (givenWeapons) => {
+      return givenWeapons.reduce(
+        (damageAndRange, weapon) => {
+          damageAndRange.damage += weapons[weapon].damage;
+          damageAndRange.range += weapons[weapon].range;
+          return damageAndRange;
+        },
+        { damage: 0, range: 0 },
+      );
+    };
+
+    const result = characters.map(({ name, weapons }) => {
+      return { [name]: damageRangeSum(weapons) };
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /**
+     * I know I have an array of character objects that each have a weapons property that is an array of strings
+     * I have a weapons object that has keys of weapon names and values of objects with damage and range properties
+     * I need an array of objects that are characters and the total damage and total range
+     * My result is an array of equal length so I can use map
+     * At each iteration I can build an object with the key of the char name and the value an object
+     * I need to use reduce at each character weapons array building an object that is the accumulitive damage and range
+     */
   },
 };
 
