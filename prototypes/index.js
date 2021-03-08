@@ -962,11 +962,43 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const averageAge = (actors, year) => {
+      // console.log(actors.length);
+      // console.log(year);
+      let totalAge = actors.reduce((total, actor) => {
+        return total + (year - humans[actor].yearBorn);
+      }, 0);
+      // console.log(totalAge);
+      return parseInt(totalAge / actors.length);
+    };
+
+    const result = movies.reduce(
+      (directors, { title, director, cast, yearReleased }) => {
+        directors[director]
+          ? (directors[director][title] = averageAge(cast, yearReleased))
+          : (directors[director] = { [title]: averageAge(cast, yearReleased) });
+
+        return directors;
+      },
+      {},
+    );
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an array of movies that have a properties director , title, and yearReleases
+     * I know I also have a humans object that has keys of actor names with a value of an object that has their birth year
+     * I know I need to make an object that has keys of the director names values of an object
+     * Each of these objects have keys of their movies and the average age of the actors when the movie was released
+     * I will start with a helper function that takes in a list of actors, and a year and uses the humans object to return an average age at that year
+     * I can use reduce starting with no initial value
+     * At each iteration I will subtract the given year and the actors yearBorn then add it to a total
+     * Then the helper function will take this total and devide it by the lenght of the given actors array
+     *
+     * Now I can build my object of directors
+     * I can go through my movies array and at each movie use bracket notation to get the direcotr as the key
+     * Then use bracket notation again to set the value of the director to an object that has a key of the title and call my helper function to get the average
+     */
   },
 
   uncastActors() {
@@ -994,12 +1026,39 @@ const dinosaurPrompts = {
         imdbStarMeterRating: 0
       }]
     */
+    let allActorsInMovies = movies.reduce((allActorsInMovies, movie) => {
+      return allActorsInMovies.concat(allActorsInMovies, movie.cast);
+    }, []);
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    let humansNotCast = Object.keys(humans).reduce((humansNotCast, human) => {
+      !allActorsInMovies.includes(human) &&
+        humansNotCast.push({
+          name: human,
+          nationality: humans[human].nationality,
+          imdbStarMeterRating: humans[human].imdbStarMeterRating,
+        });
+
+      return humansNotCast;
+    }, []);
+
+    const result = humansNotCast.sort((actorA, actorB) => {
+      if (actorA.nationality > actorB.nationality) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have a humans object where each key is an actor name and the value is an ojbect with a nationality and an imdbRating
+     * I know I also have a movies array of movie objects each object has a cost property
+     * I know I need to make an array of objects that have name nationality and imbdStarMeterRating properties
+     * I think it is best to first get a full array with the needed format for all humans
+     * To do this I can use use map over humans.keys and at each iteration return an object based on my needed params
+     * I can build a list of all the cast in all the dinoMovies by reducing over the movies array and concating the cast to my accumulator
+     */
   },
 
   actorsAgesInMovies() {
