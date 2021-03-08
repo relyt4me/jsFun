@@ -910,11 +910,30 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const numberAwesome = (dinoList) => {
+      return dinoList.reduce((totalAwesome, dino) => {
+        dinosaurs[dino].isAwesome && totalAwesome++;
+        return totalAwesome;
+      }, 0);
+    };
+
+    const result = movies.reduce((answer, { title, dinos }) => {
+      answer[title] = numberAwesome(dinos);
+      return answer;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an object called dinosaurs that has keys of the dinosaur name and then a value object with an isAwesome property
+     * I know I also have an array of movie objects each with a title and a dinos property
+     * The dinos property is an array of dino names
+     * I know I need to make an object that has keys of the name of movies and values of the number of dinos in that movie with the isAwesome property being true
+     * I am making an object out of my movies array so I should use reduce building my object
+     * At each itteration I will need to use the title to create my key and then get the dinos number
+     * To get the dinos number I can create a helper function that takes in the dinos array
+     * I will use reduce to get a number from the array checking at each dino if bracket name dot isAwesome is true
+     */
   },
 
   averageAgePerMovie() {
