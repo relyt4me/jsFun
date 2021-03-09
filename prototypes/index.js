@@ -1076,12 +1076,42 @@ const dinosaurPrompts = {
       { name: 'Chris Pratt', ages: [ 36, 39 ] },
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
+    let actorsInMovies = movies.reduce((actorsInMovies, movie) => {
+      // console.log(movie.title, movie.cast);
+      movie.cast.forEach((actorName) => {
+        let foundActorIndex;
+        if (
+          actorsInMovies.find((actor, index) => {
+            let actorNameAlreadyInArray = actorName === actor.name;
+            actorNameAlreadyInArray && (foundActorIndex = index);
+            return actorNameAlreadyInArray;
+          })
+        ) {
+          actorsInMovies[foundActorIndex].ages.push(
+            movie.yearReleased - humans[actorName].yearBorn,
+          );
+        } else {
+          actorsInMovies.push({
+            name: actorName,
+            ages: [movie.yearReleased - humans[actorName].yearBorn],
+          });
+        }
+      });
+      return actorsInMovies;
+    }, []);
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const result = actorsInMovies;
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an object with keys that are humans and object values that have a property of yearBorn
+     * I know I have an array of movie objects that have a yearReleased and a cost property that is an array of names
+     * I know i need an array of objects with a name and ages properties where the ages is an array of integers representing the age of the individual in the movie
+     * I can first start with solving the problem of having the base of the array with just actors that appeared in the movies
+     * I can do this by going into the movies array and at each movie look at the cast
+     * I can use reduce here to build the array of objects with a conditional if the actor already is listed
+     */
   },
 };
 
