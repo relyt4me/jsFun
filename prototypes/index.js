@@ -910,11 +910,30 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const numberAwesome = (dinoList) => {
+      return dinoList.reduce((totalAwesome, dino) => {
+        dinosaurs[dino].isAwesome && totalAwesome++;
+        return totalAwesome;
+      }, 0);
+    };
+
+    const result = movies.reduce((answer, { title, dinos }) => {
+      answer[title] = numberAwesome(dinos);
+      return answer;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an object called dinosaurs that has keys of the dinosaur name and then a value object with an isAwesome property
+     * I know I also have an array of movie objects each with a title and a dinos property
+     * The dinos property is an array of dino names
+     * I know I need to make an object that has keys of the name of movies and values of the number of dinos in that movie with the isAwesome property being true
+     * I am making an object out of my movies array so I should use reduce building my object
+     * At each itteration I will need to use the title to create my key and then get the dinos number
+     * To get the dinos number I can create a helper function that takes in the dinos array
+     * I will use reduce to get a number from the array checking at each dino if bracket name dot isAwesome is true
+     */
   },
 
   averageAgePerMovie() {
@@ -943,11 +962,43 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const averageAge = (actors, year) => {
+      // console.log(actors.length);
+      // console.log(year);
+      let totalAge = actors.reduce((total, actor) => {
+        return total + (year - humans[actor].yearBorn);
+      }, 0);
+      // console.log(totalAge);
+      return parseInt(totalAge / actors.length);
+    };
+
+    const result = movies.reduce(
+      (directors, { title, director, cast, yearReleased }) => {
+        directors[director]
+          ? (directors[director][title] = averageAge(cast, yearReleased))
+          : (directors[director] = { [title]: averageAge(cast, yearReleased) });
+
+        return directors;
+      },
+      {},
+    );
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an array of movies that have a properties director , title, and yearReleases
+     * I know I also have a humans object that has keys of actor names with a value of an object that has their birth year
+     * I know I need to make an object that has keys of the director names values of an object
+     * Each of these objects have keys of their movies and the average age of the actors when the movie was released
+     * I will start with a helper function that takes in a list of actors, and a year and uses the humans object to return an average age at that year
+     * I can use reduce starting with no initial value
+     * At each iteration I will subtract the given year and the actors yearBorn then add it to a total
+     * Then the helper function will take this total and devide it by the lenght of the given actors array
+     *
+     * Now I can build my object of directors
+     * I can go through my movies array and at each movie use bracket notation to get the direcotr as the key
+     * Then use bracket notation again to set the value of the director to an object that has a key of the title and call my helper function to get the average
+     */
   },
 
   uncastActors() {
@@ -975,12 +1026,39 @@ const dinosaurPrompts = {
         imdbStarMeterRating: 0
       }]
     */
+    let allActorsInMovies = movies.reduce((allActorsInMovies, movie) => {
+      return allActorsInMovies.concat(allActorsInMovies, movie.cast);
+    }, []);
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    let humansNotCast = Object.keys(humans).reduce((humansNotCast, human) => {
+      !allActorsInMovies.includes(human) &&
+        humansNotCast.push({
+          name: human,
+          nationality: humans[human].nationality,
+          imdbStarMeterRating: humans[human].imdbStarMeterRating,
+        });
+
+      return humansNotCast;
+    }, []);
+
+    const result = humansNotCast.sort((actorA, actorB) => {
+      if (actorA.nationality > actorB.nationality) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have a humans object where each key is an actor name and the value is an ojbect with a nationality and an imdbRating
+     * I know I also have a movies array of movie objects each object has a cost property
+     * I know I need to make an array of objects that have name nationality and imbdStarMeterRating properties
+     * I think it is best to first get a full array with the needed format for all humans
+     * To do this I can use use map over humans.keys and at each iteration return an object based on my needed params
+     * I can build a list of all the cast in all the dinoMovies by reducing over the movies array and concating the cast to my accumulator
+     */
   },
 
   actorsAgesInMovies() {
@@ -998,12 +1076,42 @@ const dinosaurPrompts = {
       { name: 'Chris Pratt', ages: [ 36, 39 ] },
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
+    let actorsInMovies = movies.reduce((actorsInMovies, movie) => {
+      // console.log(movie.title, movie.cast);
+      movie.cast.forEach((actorName) => {
+        let foundActorIndex;
+        if (
+          actorsInMovies.find((actor, index) => {
+            let actorNameAlreadyInArray = actorName === actor.name;
+            actorNameAlreadyInArray && (foundActorIndex = index);
+            return actorNameAlreadyInArray;
+          })
+        ) {
+          actorsInMovies[foundActorIndex].ages.push(
+            movie.yearReleased - humans[actorName].yearBorn,
+          );
+        } else {
+          actorsInMovies.push({
+            name: actorName,
+            ages: [movie.yearReleased - humans[actorName].yearBorn],
+          });
+        }
+      });
+      return actorsInMovies;
+    }, []);
 
-    const result = "REPLACE WITH YOUR RESULT HERE";
+    const result = actorsInMovies;
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /**
+     * I know I have an object with keys that are humans and object values that have a property of yearBorn
+     * I know I have an array of movie objects that have a yearReleased and a cost property that is an array of names
+     * I know i need an array of objects with a name and ages properties where the ages is an array of integers representing the age of the individual in the movie
+     * I can first start with solving the problem of having the base of the array with just actors that appeared in the movies
+     * I can do this by going into the movies array and at each movie look at the cast
+     * I can use reduce here to build the array of objects with a conditional if the actor already is listed
+     */
   },
 };
 
